@@ -14,6 +14,8 @@
 #include "bh_read_file.h"
 #include "wasm_export.h"
 
+#include "timestamps.h"
+
 #if WASM_ENABLE_LIBC_WASI != 0
 #include "../common/libc_wasi.c"
 #endif
@@ -539,27 +541,6 @@ timeout_thread(void *vp)
 }
 #endif
 
-typedef unsigned long long timestamp_t;
-typedef long timeduration_t;
-
-// returns a timestamp in ms since epoch or clock cycles
-timestamp_t timestamp() {
-    struct timespec ts;
-
-    if (clock_gettime(CLOCK_REALTIME, &ts) < 0) {
-        fprintf(stderr, "Could not retrieve correct timestamp");
-        exit(-1);
-    }
-
-    timestamp_t millis_s = ts.tv_sec * 1000;
-    timestamp_t millis_ns = ts.tv_nsec / 1000000;
-    return millis_s + millis_ns;
-}
-
-void print_timestamp(FILE *f, const char * tag, timestamp_t ts){
-    fprintf(f, "%s, timestamp: \t%llu\n", tag, ts);
-}
-
 int
 main(int argc, char *argv[])
 {
@@ -620,7 +601,7 @@ main(int argc, char *argv[])
 #endif
 
     timestamp_t start_iwasm = timestamp();
-    print_timestamp(stdout, "iwasm start", start_iwasm);
+    print_timestamp("iwasm start", start_iwasm);
 
     /* Process options. */
     for (argc--, argv++; argc > 0 && argv[0][0] == '-'; argc--, argv++) {
