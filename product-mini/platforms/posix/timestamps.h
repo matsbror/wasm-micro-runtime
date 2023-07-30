@@ -50,7 +50,7 @@ void print_timestamp(const char * tag, timestamp_t ts){
     if (!initialised) {
         init_timestamps();
     }
-    fprintf(fd, "WABENCH, %s, timestamp: %llu\n", tag, ts);
+    fprintf(fd, "WABENCH, %s, timestamp:, %llu\n", tag, ts);
     fflush(fd);
 }
 
@@ -58,6 +58,6 @@ void print_elapsed_time(const char * tag, timeduration_t time){
     if (!initialised) {
         init_timestamps();
     }
-    fprintf(fd, "WABENCH, %s, elapsed time: %ld\n", tag, time);
+    fprintf(fd, "WABENCH, %s, elapsed time:, %ld\n", tag, time);
     fflush(fd);
 }
