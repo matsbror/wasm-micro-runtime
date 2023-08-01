@@ -41,9 +41,9 @@ timestamp_t timestamp() {
         exit(-1);
     }
 
-    timestamp_t millis_s = ts.tv_sec * 1000;
-    timestamp_t millis_ns = ts.tv_nsec / 1000000;
-    return millis_s + millis_ns; 
+    timestamp_t micros_s = ts.tv_sec * 1000000;
+    timestamp_t micros_ns = ts.tv_nsec / 1000;
+    return micros_s + micros_ns; 
 }
 
 // returns the time since the last time stamp
