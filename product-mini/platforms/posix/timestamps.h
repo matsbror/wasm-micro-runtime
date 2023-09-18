@@ -56,7 +56,7 @@ void print_timestamp(const char *runtime, const char *tag, timestamp_t ts) {
     if (!initialised) {
         init_timestamps();
     }
-    fprintf(fd, "%s\t%s\t%s\ttimestamp\t%llu\n", BENCHMARK, runtime, tag, ts);
+    fprintf(fd, "WABENCH, %s, %s, timestamp, %llu\n", runtime, tag, ts);
     fflush(fd);
 }
 
