@@ -601,7 +601,7 @@ main(int argc, char *argv[])
 #endif
 
     timestamp_t start_iwasm = timestamp();
-    print_timestamp("iwasm", "start", start_iwasm);
+    print_timestamp("start", start_iwasm);
 
     /* Process options. */
     for (argc--, argv++; argc > 0 && argv[0][0] == '-'; argc--, argv++) {
