@@ -8,6 +8,8 @@ static int mode = MILLIS;
 static int initialised = 0;
 static FILE *fd = NULL; 
 static char *BENCHMARK = "";
+static char *HOSTTYPE = "";
+static char *WAMR_VARIANT = "";
 
 typedef unsigned long long timestamp_t;
 typedef long timeduration_t; 
@@ -25,6 +27,16 @@ void init_timestamps() {
         BENCHMARK = getenv("WABENCHMARK");
         if (BENCHMARK == NULL) {
             BENCHMARK = "unknown";            
+        } 
+
+        HOSTTYPE = getenv("HOSTTYPE");
+        if (HOSTTYPE == NULL) {
+            HOSTTYPE = "unknown";            
+        } 
+
+        WAMR_VARIANT = getenv("WAMR_VARIANT");
+        if (WAMR_VARIANT == NULL) {
+            WAMR_VARIANT = "iwasm-interp";            
         } 
 
         mode = MILLIS;
@@ -56,7 +68,7 @@ void print_timestamp(const char *tag, timestamp_t ts) {
     if (!initialised) {
         init_timestamps();
     }
-    fprintf(fd, "WABENCH, iwasm, %s, %s, timestamp, %llu\n", BENCHMARK, tag, ts);
+    fprintf(fd, "%s, %s, %s, %s, timestamp, %llu\n", HOSTTYPE, WAMR_VARIANT, BENCHMARK, tag, ts);
     fflush(fd);
 }
 
@@ -65,6 +77,6 @@ void print_elapsed_time(const char * tag, timeduration_t time){
     if (!initialised) {
         init_timestamps();
     }
-    fprintf(fd, "WABENCH, iwasm, %s, %s, elapsed time, %ld\n", BENCHMARK, tag, time);
+    fprintf(fd, "%s, %s, %s, %s, elapsed time, %ld\n", HOSTTYPE, WAMR_VARIANT, BENCHMARK, tag, time);
     fflush(fd);
 }
