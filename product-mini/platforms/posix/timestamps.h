@@ -34,7 +34,7 @@ void init_timestamps() {
             HOSTTYPE = "unknown";            
         } 
 
-        WAMR_VARIANT = getenv("WAMR_VARIANT");
+        WAMR_VARIANT = getenv("WARUNTIME");
         if (WAMR_VARIANT == NULL) {
             WAMR_VARIANT = "iwasm-interp";            
         } 
